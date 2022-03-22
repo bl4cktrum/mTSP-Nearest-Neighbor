@@ -14,7 +14,7 @@ The cost metric can represent cost, distance, or time. The requirements on the s
 **Multiple depots**: Instead of one depot, the multi-depot *m*TSP has a set of depots, with m<sub>j</sub> salesmen at each depot *j*. 
 In the *fixed destination* version, a salesman returns to the same depot from which he started.
 
-This project uses [JewelCLI](http://jewelcli.lexicalscope.com) library to parse command line arguments, 
+This project uses [JewelCLI](http://jewelcli.lexicalscope.com) library to parse command line arguments.
 
 Usage:
 ```
