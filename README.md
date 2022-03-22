@@ -1,5 +1,8 @@
 # The Multiple Traveling Salesman Problem
 
+This project solves multiple traveling salesman problem using nearest neighbor algorithm.
+
+
 The [Multiple Traveling Salesman Problem](https://neos-guide.org/content/multiple-traveling-salesman-problem-mtsp) (*m*TSP) in which more than one salesman is allowed is a generalization of the Traveling Salesman Problem (TSP).
 Given a set of cities, one depot (where *m* salesmen are located), and a cost metric, the objective of the *m*TSP is to determine a set of routes for *m* salesmen so as to minimize the total cost of the *m* routes. 
 The cost metric can represent cost, distance, or time. The requirements on the set of routes are:
@@ -11,53 +14,65 @@ The cost metric can represent cost, distance, or time. The requirements on the s
 **Multiple depots**: Instead of one depot, the multi-depot *m*TSP has a set of depots, with m<sub>j</sub> salesmen at each depot *j*. 
 In the *fixed destination* version, a salesman returns to the same depot from which he started.
 
-In this homework, we will generate 100,000 random solutions to the *fixed destination* version of the multi-depot *m*TSP.
-The number of depots and salesman per depot will be our parameters. The cost metric will be total distance in kilometers.
-At the end, we will print the best solution that has the minimum cost among 100,000 random solutions.
+This project uses [JewelCLI](http://jewelcli.lexicalscope.com) library to parse command line arguments, 
 
-Your project **must** be a valid maven project. `mvn clean package` must produce an executable jar file named **mTSP.jar** under the target directory.
-This can be done via maven plugins such as [shade](https://maven.apache.org/plugins/maven-shade-plugin) or [assembly](https://maven.apache.org/plugins/maven-assembly-plugin) plugin.
-Optional parameter [finalName](https://maven.apache.org/plugins/maven-shade-plugin/shade-mojo.html#finalName) can be used to change the name of the shaded artifactId.
-To parse command line arguments, you *must* use [JewelCLI](http://jewelcli.lexicalscope.com) library.
+Usage:
+```
+mvn clean package
+java -jar target\mTSP.jar {args}
+```
 
-For example, `java -jar target/mTSP.jar -d 5 -s 2 -v` would produce something like below.
+Example:
+```
+java -jar target\ mTSP.jar -d 12 -s 2 -v
+(12 depots and each depot has 2 salesmen)
+```
+```
+"-d" is number of depot parameter.
+"-s" is number of salesman parameter.
+"-v" is verbose parameter. (prints "ADANA" instead of "1")
+```
 Notice that the last line includes the cost metric: the total distance travelled by all salesmen.
 
-```yaml
-Depot1: İÇEL
-  Route1: ZONGULDAK,GİRESUN,VAN,OSMANİYE,BİNGÖL,ELAZIĞ,ŞIRNAK,BAYBURT,IĞDIR
-  Route2: BURDUR,AYDIN,MANİSA,TUNCELİ,ANKARA,ÇANKIRI,KIRIKKALE
-Depot2: DİYARBAKIR
-  Route1: KIRŞEHİR,KAYSERİ,KÜTAHYA,ARTVİN,İZMİR,HATAY,UŞAK,ISPARTA,KAHRAMANMARAŞ,İSTANBUL
-  Route2: KONYA,ŞANLIURFA,ADIYAMAN,MALATYA,SİVAS,BATMAN,MUŞ,SİİRT
-Depot3: ERZURUM
-  Route1: AĞRI,KARAMAN,BOLU,ANTALYA,KASTAMONU,ÇORUM,ÇANAKKALE,SAKARYA,GÜMÜŞHANE,BİTLİS
-  Route2: ERZİNCAN,GAZİANTEP,BURSA,HAKKARİ
-Depot4: ESKİŞEHİR
-  Route1: MUĞLA,BARTIN,NİĞDE,RİZE,NEVŞEHİR
-  Route2: YOZGAT,KARABÜK,BALIKESİR,TEKİRDAĞ,AFYON,YALOVA
-Depot5: TOKAT
-  Route1: DÜZCE,TRABZON,MARDİN,ARDAHAN,KARS,ORDU,KOCAELİ,DENİZLİ,KIRKLARELİ,EDİRNE
-  Route2: AKSARAY,BİLECİK,ADANA,SİNOP,AMASYA,KİLİS,SAMSUN
-**Total cost is 52308
+Outputs:
+It shows the current minimum cost value to the left of the values printed on the screen and the current iteration number to the right until the routes are displayed.
+(in this example: ``0th iteration`` has ``23618 kilometers``, ``14th iteration`` has ``23537 kilometer``)<br>
+```
+java -jar target\ mTSP.jar -d 5 -s 2 -v
+23618 0
+23537 14
+23484 31
+23438 38
+23298 43
+...
+...
+...
+
+14970 360656
+14952 361479
+14916 666848
+14893 667193
+
+
+Depotl:KAYSERİ
+Routel: NİĞDE, NEVŞEHİR, AKSARAY, KIRŞEHİR, YOZGAT
+Route2: MALATYA, ELAZIĞ, TUNCELİ, ERZİNCAN, GİRESUN, ORDU, SAMSUN,
+ÇORUM, AMASYA, TOKAT, SİVAS
+Depot2:DİYARBAKIR
+Routel: BİNGÖL, MUŞ, BİTLİS, VAN, HAKKARİ, ŞIRNAK, SIIRT, BATMAN
+Route2: ŞANLIURFA, GAZİANTEP, OSMANİYE, KAHRAMANMARAŞ, ADIYAMAN
+Depot3:AĞRI
+Routel: SİNOP, BOLU, TEKİRDAĞ, ÇANAKKALE, UŞAK, ISPARTA, BURDUR,
+ANTALYA, İÇEL, ADANA, HATAY, KİLİS, MARDİN
+Route2: IĞDIR, KARS, ARDAHAN, ARTVİN, RİZE, TRABZON, GÜMÜŞHANE,
+BAYBURT, ERZURUM
+Depotli:ESKİŞEHİR
+Routel: KONYA, KARAMAN, AFYON, KÜTAHYA
+Route2: BURSA, YALOVA, KOCAELİ, SAKARYA, DÜZCE, BİLECİK
+Depot5:ANKARA
+Routel: KIRIKKALE, ÇANKIRI, KASTAMONU, KARABÜK, BARTIN, ZONGULDAK
+Route2: DENİZLİ, MUĞLA, AYDIN, İZMİR, MANİSA, BALIKESİR, EDİRNE,
+KIRKLARELİ, İSTANBUL
+**Total cost is 14893
 ```
 
-Non-verbose example `java -jar target/mTSP.jar -d 2 -s 5` will print city indices instead of city names:
-```yaml
-Depot1: 18
-  Route1: 32,67,27,7,54,6,38,53,73
-  Route2: 56,9,72,55,1,12
-  Route3: 8,16,19,26,3,29,47,11,24
-  Route4: 49,42,25,58,4,22
-  Route5: 0,43,77,36,70
-Depot2: 59
-  Route1: 51,35,62,57,50
-  Route2: 13,80,31,71,75,14,78
-  Route3: 30,41,79,48,64,28,39,45,46
-  Route4: 61,76,5,68,74,60,33,21,10,65,23
-  Route5: 44,40,15,66,63,34,52,37,17,2,20,69
-**Total cost is 51631
-```
-
-
-:exclamation: If you don't follow the aforementioned conventions, you will receive grade of zero (even if you think that your code works perfectly).
